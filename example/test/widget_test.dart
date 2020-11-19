@@ -6,7 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:slidy_calendar/slidy_calendar.dart';
 
 void main() {
   DateTime pressedDay;
@@ -16,7 +16,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: Container(
-          child: CalendarCarousel(
+          child: SlidyCalendar(
             daysHaveCircularBorder: null,
             weekendTextStyle: TextStyle(
               color: Colors.red,
@@ -50,7 +50,7 @@ void main() {
       ),
     ));
 
-    expect(find.byType(CalendarCarousel), findsOneWidget);
+    expect(find.byType(SlidyCalendar), findsOneWidget);
 
     expect(pressedDay, isNull);
 

@@ -6,17 +6,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:slidy_calendar/slidy_calendar.dart';
 
 void main() {
   DateTime pressedDay;
-  testWidgets('Default test for Calendar Carousel',
-      (WidgetTester tester) async {
+  testWidgets('Default test for Calendar Carousel', (WidgetTester tester) async {
     //  Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: Container(
-          child: CalendarCarousel(
+          child: SlidyCalendar(
             daysHaveCircularBorder: null,
             weekendTextStyle: TextStyle(
               color: Colors.red,
@@ -40,8 +39,7 @@ void main() {
             },
             todayButtonColor: Colors.transparent,
             todayBorderColor: Colors.green,
-            markedDateMoreShowTotal:
-                true, // null for not showing hidden events indicator
+            markedDateMoreShowTotal: true, // null for not showing hidden events indicator
             onDayPressed: (date, event) {
               pressedDay = date;
             },
@@ -50,7 +48,7 @@ void main() {
       ),
     ));
 
-    expect(find.byType(CalendarCarousel), findsOneWidget);
+    expect(find.byType(SlidyCalendar), findsOneWidget);
   });
 
   testWidgets(
@@ -62,7 +60,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Container(
-              child: CalendarCarousel(
+              child: SlidyCalendar(
                 weekFormat: true,
                 height: 200.0,
                 onDayPressed: (date, event) {
@@ -74,7 +72,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CalendarCarousel), findsOneWidget);
+      expect(find.byType(SlidyCalendar), findsOneWidget);
 
       expect(pressedDay, isNull);
 
@@ -93,7 +91,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Container(
-              child: CalendarCarousel(
+              child: SlidyCalendar(
                 weekFormat: true,
                 height: 200.0,
               ),
@@ -102,7 +100,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CalendarCarousel), findsOneWidget);
+      expect(find.byType(SlidyCalendar), findsOneWidget);
 
       await tester.tap(find.text(DateTime.now().day.toString()));
       await tester.pump();
@@ -118,7 +116,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Container(
-              child: CalendarCarousel(
+              child: SlidyCalendar(
                 weekFormat: true,
                 height: 200.0,
                 onDayLongPressed: (date) {
@@ -130,7 +128,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CalendarCarousel), findsOneWidget);
+      expect(find.byType(SlidyCalendar), findsOneWidget);
 
       expect(longPressedDay, isNull);
 
@@ -148,7 +146,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Container(
-              child: CalendarCarousel(
+              child: SlidyCalendar(
                 weekFormat: true,
                 height: 200.0,
               ),
@@ -157,7 +155,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CalendarCarousel), findsOneWidget);
+      expect(find.byType(SlidyCalendar), findsOneWidget);
 
       await tester.longPress(find.text(DateTime.now().day.toString()));
       await tester.pump();

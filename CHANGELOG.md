@@ -1,3 +1,7 @@
+## [1.5.2]
+
+- Forked by flutter_calendar_carousel (https://github.com/dooboolab/flutter_calendar_carousel)
+  
 ## [1.5.1]
 
 - Bugfix when switching month - "The method 'call' was called on null." [#243](https://github.com/dooboolab/flutter_calendar_carousel/pull/243)

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
-    show CalendarCarousel;
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
-void main() => runApp(new MyApp());
+import 'package:slidy_calendar/slidy_calendar.dart';
+
+import 'package:slidy_calendar/classes/event.dart';
+import 'package:slidy_calendar/classes/event_list.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'dooboolab flutter calendar',
-      theme: new ThemeData(
+      theme: ThemeData(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Calendar Carousel Example'),
+      home: MyHomePage(title: 'Flutter Calendar Carousel Example'),
     );
   }
 }
@@ -45,7 +46,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -54,22 +55,22 @@ class _MyHomePageState extends State<MyHomePage> {
   String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
   DateTime _targetDateTime = DateTime(2019, 2, 3);
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  static Widget _eventIcon = new Container(
-    decoration: new BoxDecoration(
+  static final Widget _eventIcon = Container(
+    decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(1000)),
         border: Border.all(color: Colors.blue, width: 2.0)),
-    child: new Icon(
+    child: Icon(
       Icons.person,
       color: Colors.amber,
     ),
   );
 
-  EventList<Event> _markedDateMap = new EventList<Event>(
+  final EventList<Event> _markedDateMap = EventList<Event>(
     events: {
-      new DateTime(2019, 2, 10): [
-        new Event(
-          date: new DateTime(2019, 2, 10),
+      DateTime(2019, 2, 10): [
+        Event(
+          date: DateTime(2019, 2, 10),
           title: 'Event 1',
           icon: _eventIcon,
           dot: Container(
@@ -79,13 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 5.0,
           ),
         ),
-        new Event(
-          date: new DateTime(2019, 2, 10),
+        Event(
+          date: DateTime(2019, 2, 10),
           title: 'Event 2',
           icon: _eventIcon,
         ),
-        new Event(
-          date: new DateTime(2019, 2, 10),
+        Event(
+          date: DateTime(2019, 2, 10),
           title: 'Event 3',
           icon: _eventIcon,
         ),
@@ -93,40 +94,40 @@ class _MyHomePageState extends State<MyHomePage> {
     },
   );
 
-  CalendarCarousel _calendarCarousel, _calendarCarouselNoHeader;
+  SlidyCalendar _calendarCarousel, _calendarCarouselNoHeader;
 
   @override
   void initState() {
     /// Add more events to _markedDateMap EventList
     _markedDateMap.add(
-        new DateTime(2019, 2, 25),
-        new Event(
-          date: new DateTime(2019, 2, 25),
+        DateTime(2019, 2, 25),
+        Event(
+          date: DateTime(2019, 2, 25),
           title: 'Event 5',
           icon: _eventIcon,
         ));
 
     _markedDateMap.add(
-        new DateTime(2019, 2, 10),
-        new Event(
-          date: new DateTime(2019, 2, 10),
+        DateTime(2019, 2, 10),
+        Event(
+          date: DateTime(2019, 2, 10),
           title: 'Event 4',
           icon: _eventIcon,
         ));
 
-    _markedDateMap.addAll(new DateTime(2019, 2, 11), [
-      new Event(
-        date: new DateTime(2019, 2, 11),
+    _markedDateMap.addAll(DateTime(2019, 2, 11), [
+      Event(
+        date: DateTime(2019, 2, 11),
         title: 'Event 1',
         icon: _eventIcon,
       ),
-      new Event(
-        date: new DateTime(2019, 2, 11),
+      Event(
+        date: DateTime(2019, 2, 11),
         title: 'Event 2',
         icon: _eventIcon,
       ),
-      new Event(
-        date: new DateTime(2019, 2, 11),
+      Event(
+        date: DateTime(2019, 2, 11),
         title: 'Event 3',
         icon: _eventIcon,
       ),
@@ -137,9 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     /// Example with custom icon
-    _calendarCarousel = CalendarCarousel<Event>(
-      onDayPressed: (DateTime date, List<Event> events) {
-        this.setState(() => _currentDate = date);
+    _calendarCarousel = SlidyCalendar<Event>(
+      onDayPressed: (date, events) {
+        setState(() => _currentDate = date);
         events.forEach((event) => print(event.title));
       },
       weekendTextStyle: TextStyle(
@@ -170,17 +171,16 @@ class _MyHomePageState extends State<MyHomePage> {
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
       todayButtonColor: Colors.transparent,
       todayBorderColor: Colors.green,
-      markedDateMoreShowTotal:
-          true, // null for not showing hidden events indicator
+      markedDateMoreShowTotal: true, // null for not showing hidden events indicator
 //          markedDateIconMargin: 9,
 //          markedDateIconOffset: 3,
     );
 
     /// Example Calendar Carousel without header and custom prev & next button
-    _calendarCarouselNoHeader = CalendarCarousel<Event>(
+    _calendarCarouselNoHeader = SlidyCalendar<Event>(
       todayBorderColor: Colors.green,
-      onDayPressed: (DateTime date, List<Event> events) {
-        this.setState(() => _currentDate2 = date);
+      onDayPressed: (date, events) {
+        setState(() => _currentDate2 = date);
         events.forEach((event) => print(event.title));
       },
       daysHaveCircularBorder: true,
@@ -196,9 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateCustomShapeBorder: CircleBorder(
-        side: BorderSide(color: Colors.yellow)
-      ),
+      markedDateCustomShapeBorder: CircleBorder(side: BorderSide(color: Colors.yellow)),
       markedDateCustomTextStyle: TextStyle(
         fontSize: 18,
         color: Colors.blue,
@@ -228,20 +226,20 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.tealAccent,
         fontSize: 16,
       ),
-      onCalendarChanged: (DateTime date) {
-        this.setState(() {
+      onCalendarChanged: ( date) {
+        setState(() {
           _targetDateTime = date;
           _currentMonth = DateFormat.yMMM().format(_targetDateTime);
         });
       },
-      onDayLongPressed: (DateTime date) {
+      onDayLongPressed: ( date) {
         print('long pressed date $date');
       },
     );
 
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.title),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -261,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 16.0,
                   right: 16.0,
                 ),
-                child: new Row(
+                child: Row(
                   children: <Widget>[
                     Expanded(
                         child: Text(
@@ -275,7 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('PREV'),
                       onPressed: () {
                         setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month -1);
+                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month - 1);
                           _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                         });
                       },
@@ -284,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('NEXT'),
                       onPressed: () {
                         setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month +1);
+                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month + 1);
                           _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                         });
                       },

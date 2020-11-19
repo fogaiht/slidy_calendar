@@ -15,10 +15,7 @@ class Event implements EventInterface {
 
   @override
   bool operator ==(dynamic other) {
-    return this.date == other.date &&
-        this.title == other.title &&
-        this.icon == other.icon &&
-        this.dot == other.dot;
+    return date == other.date && title == other.title && icon == other.icon && dot == other.dot;
   }
 
   @override

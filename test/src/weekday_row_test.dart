@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
-    show WeekdayFormat;
+
 import 'package:intl/intl.dart' show DateFormat;
 
-import 'package:flutter_calendar_carousel/src/weekday_row.dart';
 import 'package:flutter/material.dart';
+import 'package:slidy_calendar/slidy_calendar.dart' show WeekdayFormat;
+import 'package:slidy_calendar/src/weekday_row.dart';
 
 void main() {
   final locale = DateFormat.yMMM("en_US");
@@ -35,17 +35,17 @@ void main() {
   });
 
   testWidgets('test narrow weekday row', (WidgetTester tester) async {
-    await tester.pumpWidget(wrapped(
-      WeekdayRow(
-        0, null,
-        weekdayPadding: EdgeInsets.all(0),
-        weekdayBackgroundColor: Colors.transparent,
-        showWeekdays: true,
-        weekdayFormat: WeekdayFormat.standaloneNarrow,
-        weekdayMargin: margin,
-        weekdayTextStyle: null,
-        localeDate: locale,
-      )));
+    await tester.pumpWidget(wrapped(WeekdayRow(
+      0,
+      null,
+      weekdayPadding: EdgeInsets.all(0),
+      weekdayBackgroundColor: Colors.transparent,
+      showWeekdays: true,
+      weekdayFormat: WeekdayFormat.standaloneNarrow,
+      weekdayMargin: margin,
+      weekdayTextStyle: null,
+      localeDate: locale,
+    )));
 
     // sat and sun
     expect(find.text('S'), findsNWidgets(2));
@@ -59,7 +59,8 @@ void main() {
 
   testWidgets('test standalone weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0, null,
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
@@ -80,7 +81,8 @@ void main() {
 
   testWidgets('test standalone short weekday row', (WidgetTester tester) async {
     await tester.pumpWidget(wrapped(WeekdayRow(
-      0, null,
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: true,
@@ -100,7 +102,9 @@ void main() {
   });
 
   testWidgets('test row does not render', (WidgetTester tester) async {
-    final emptyContainer = WeekdayRow(0, null,
+    final emptyContainer = WeekdayRow(
+      0,
+      null,
       weekdayPadding: EdgeInsets.all(0),
       weekdayBackgroundColor: Colors.transparent,
       showWeekdays: false,

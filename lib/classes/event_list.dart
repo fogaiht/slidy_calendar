@@ -6,35 +6,33 @@ class EventList<T> {
   });
 
   void add(DateTime date, T event) {
-    if (events == null)
+    if (events == null) {
       events = {
         date: [event]
       };
-    else if (!events.containsKey(date))
+    } else if (!events.containsKey(date)) {
       events[date] = [event];
-    else
+    } else {
       events[date].add(event);
+    }
   }
 
   void addAll(DateTime date, List<T> events) {
-    if (this.events == null)
+    if (this.events == null) {
       this.events = {date: events};
-    else if (!this.events.containsKey(date))
+    } else if (!this.events.containsKey(date)) {
       this.events[date] = events;
-    else
+    } else {
       this.events[date].addAll(events);
+    }
   }
 
   bool remove(DateTime date, T event) {
-    return events != null && events.containsKey(date)
-        ? events[date].remove(event)
-        : false;
+    return events != null && events.containsKey(date) ? events[date].remove(event) : false;
   }
 
   List<T> removeAll(DateTime date) {
-    return events != null && events.containsKey(date)
-        ? events.remove(date)
-        : [];
+    return events != null && events.containsKey(date) ? events.remove(date) : [];
   }
 
   void clear() {
@@ -46,6 +44,25 @@ class EventList<T> {
   }
 
   List<T> getEvents(DateTime date) {
-    return events != null && events.containsKey(date) ? events[date] : [];
+    if (events != null) {
+      List<DateTime> eventsKeys = events.keys.map((e) => DateTime(e.year, e.month, e.day)).toList();
+      if (eventsKeys.contains(date)) {
+        DateTime dateT = events.keys.firstWhere(
+          (element) => element.day == date.day && element.month == date.month && element.year == date.year,
+        );
+        return events[dateT];
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
   }
+
+  List<T> getAllEvents() {
+    return events != null ? events.values.expand((element) => element).toList() : [];
+  }
+
+  @override
+  String toString() => 'EventList(events: $events)';
 }
