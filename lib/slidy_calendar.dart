@@ -367,6 +367,15 @@ class _CalendarState<T extends EventInterface> extends State<SlidyCalendar<T>> {
             physics: widget.isScrollable ? widget.pageScrollPhysics : NeverScrollableScrollPhysics(),
             scrollDirection: widget.scrollDirection,
             onPageChanged: (index) {
+              if (_pageNum > index) {
+                if (widget.onLeftArrowPressed != null) {
+                  widget.onLeftArrowPressed();
+                }
+              } else if (_pageNum < index) {
+                if (widget.onRightArrowPressed != null) {
+                  widget.onRightArrowPressed();
+                }
+              }
               _setDate(index);
             },
             controller: _controller,
