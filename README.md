@@ -1,4 +1,4 @@
-# flutter_calendar_carousel
+# slidy_calendar
 [![Pub Version](https://img.shields.io/pub/v/flutter_calendar_carousel.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_calendar_carousel)
 [![Build Status](https://travis-ci.com/dooboolab/flutter_calendar_carousel.svg?branch=master)](https://travis-ci.com/dooboolab/flutter_calendar_carousel)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
